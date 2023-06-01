@@ -16,18 +16,15 @@ feedback, emerging technologies, or other factors.
   users to define their own configuration files to specify the licenses that they consider risky.
 - [ ] **Docker Image**: Create a Docker image for the project to allow users to run the Dependency License Analyzer in a
   containerized environment.
-- [ ] **Github Action Marketplace**: Publish as a GitHub Action in the GitHub Marketplace
+- [ ] **Publish Actions in GitHub Marketplace**: Publish the OSS License Auditor as
+  a [GitHub Action in the GitHub Marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace)
+  to allow users to easily integrate it into their workflows.
   automated dependency analysis as part of the build and testing process.
 - [ ] **Documentation and Examples**: Provide detailed documentation and usage examples to help users get started with the
   Dependency License Analyzer.
 - [ ] **Refactor the code to improve maintainability**: Before adding new features, the code should be refactored 
   to improve the maintainability of the project.
 - [ ] **License detection from requirements.txt**: Add support for detecting licenses from `requirements.txt` files.
-- [ ] **Publish Actions in GitHub Marketplace**: Publish the Dependency License Analyzer as
-  a [GitHub Action in the GitHub Marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace)
-  to allow users to easily integrate it into their workflows.
-- [ ] **GitHub Discussions**: Set up GitHub Discussions to provide a forum for users to ask questions, share ideas, and
-  engage in conversations related to the project.
 
 ## 2024
 - [ ] **GitHub Sponsors**: Enable GitHub Sponsors to allow users to financially support the project and its maintainers.
