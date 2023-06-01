@@ -1,0 +1,62 @@
+name: run-code-quality
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  check-go-mod:
+    name: Check go.mod
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Check go.mod
+        working-directory: src
+        run: |
+          go mod tidy
+          git diff --exit-code
+
+  check-code-formatting:
+    name: Check code formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Download modules
+        working-directory: src
+        run: |
+          go mod download
+      - name: Check code formatting
+        working-directory: src
+        run: |
+          go fmt ./...
+          git diff --exit-code
+
+  check-code-linting:
+    name: Check code linting
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Download modules
+        working-directory: src
+        run: |
+          go mod download
+      - name: Check code linting
+        working-directory: src
+        run: |
+          go vet ./...

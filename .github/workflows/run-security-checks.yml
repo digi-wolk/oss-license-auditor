@@ -1,0 +1,33 @@
+name: run-security-checks
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
+
+jobs:
+  run-go-sec-scanner:
+    name: Run GoSec Security Scanner
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GO111MODULE: on
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Download modules
+        working-directory: src
+        run: |
+          go mod download
+      - name: Run GoSec Security Scanner
+        working-directory: src
+        run: |
+          docker run --rm -v $(pwd):/code securego/gosec:latest /code/...
