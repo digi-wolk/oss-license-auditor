@@ -1,6 +1,7 @@
 name: run-security-checks
 
 on:
+  workflow_dispatch:
   schedule:
     # Once a week at midnight on Sunday
     - cron: '0 0 * * 0'
@@ -20,8 +21,9 @@ jobs:
         run: |
           go mod download
       - name: Run GoSec Security Scanner
+        # TODO: Later remove -no-fail to fail and trigger on PR
         run: |
-          docker run --rm -it -e GO111MODULE=on -v $(pwd):/code securego/gosec:latest -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
+          docker run --rm -e GO111MODULE=on -v $(pwd):/code securego/gosec:latest -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
       - name: Upload report
         uses: actions/upload-artifact@v3
         with:
