@@ -1,0 +1,23 @@
+name: self-assign-author
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened]
+jobs:
+  self-assign-author:
+    name: Self assign author
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Self assign author
+        uses: actions/github-script@v6
+        with:
+        script: |
+          github.rest.issues.addAssignees({
+          issue_number: context.issue.number,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          assignees: [context.payload.pull_request.user.login]
+          })
