@@ -25,7 +25,7 @@ jobs:
         id: run_license_analysis
         working-directory: src
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "comment<<$EOF" >> $GITHUB_OUTPUT
