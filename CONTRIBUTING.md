@@ -11,8 +11,7 @@ To contribute to [oss-license-auditor](https://github.com/digi-wolk/oss-license-
 follow these guidelines:
 
 1. Fork the project repository to your GitHub account.
-2. Create a new branch in your forked repository for your contributions. Make sure to give the branch a descriptive
-   name.
+2. Create a new branch in your forked repository for your contributions.
 3. Make your changes or additions to the codebase, documentation, or any other project aspect.
 4. Ensure your code adheres to the project's coding style and guidelines. Maintain consistency with the existing
    codebase.
@@ -27,6 +26,23 @@ follow these guidelines:
 12. Be prepared to address any feedback or suggestions provided during the code review process. Collaboration and open
     communication are essential.
 13. After your changes have been approved and merged, you can delete your branch from your forked repository.
+
+## Branching Strategy
+- `master`: The main branch of the project.
+- `feature/{issue-number}/{short-description}`: For developing new features.
+- `bug/{issue-number}/{short-description}`: For fixing bugs.
+
+Note: Short description should be in kebab-case.
+
+Example valid branch names:
+- `feature/1/add-ability-to-read-licenses-from-file`
+- `bug/2/fix-incorrect-license-name`
+
+## Release tags
+- `v{major}.{minor}.{patch}`: For releases.
+- `v{major}.{minor}.{patch}-{pre-release}`: For pre-releases.
+- `v{major}.{minor}.{patch}-{build}`: For builds.
+- `v{major}.{minor}.{patch}-{pre-release}-{build}`: For builds.
 
 ## Code of Conduct
 
