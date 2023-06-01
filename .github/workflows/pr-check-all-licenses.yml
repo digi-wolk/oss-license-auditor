@@ -1,0 +1,82 @@
+name: pr-check-all-licenses
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened]
+
+jobs:
+  pr-check-all-licenses:
+    name: Check all licenses
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PATH_TO_CHECK: "."
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Download modules
+        working-directory: src
+        run: |
+          go mod download
+      - name: Run license analysis
+        id: run_license_analysis
+        working-directory: src
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "comment<<$EOF" >> $GITHUB_OUTPUT
+          go run main.go --path ${PATH_TO_CHECK} --ci >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+      - name: Comment license analysis
+        uses: actions/github-script@v6
+        env:
+          comment: ${{ steps.run_license_analysis.outputs.comment }}
+        with:
+          script: |
+            const comment = process.env.comment;
+            console.log(`comment:\n ${comment}`);
+            if (comment) {
+              comment = `**Licenses and dependencies:**\n\n${comment}`;
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              })
+            } else {
+              console.log('No comment to post!');
+            }
+      - name: Remove "failing" label if exists & succeeded
+        if: ${{ success() }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labels = await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const failingLabel = labels.data.find(label => label.name === 'failing');
+            if (failingLabel) {
+              github.rest.issues.removeLabel({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'failing'
+              })
+            }
+      - name: Add "failing" label if any of the steps failed
+        if: ${{ failure() }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['failing']
+            })
