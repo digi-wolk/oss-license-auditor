@@ -1,16 +1,9 @@
 name: run-security-checks
 
 on:
-  pull_request:
-    branches:
-      - master
-    types: [opened, synchronize, reopened, edited]
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - '**.md'
-      - '**.yml'
+  schedule:
+    # Once a week at midnight on Sunday
+    - cron: '0 0 * * 0'
 
 jobs:
   run-go-sec-scanner:
@@ -28,4 +21,11 @@ jobs:
           go mod download
       - name: Run GoSec Security Scanner
         run: |
-          docker run --rm -it -e GO111MODULE=on -v $(pwd):/code securego/gosec:latest -no-fail -exclude-dir=test/fixtures /code/...
+          docker run --rm -it -e GO111MODULE=on -v $(pwd):/code securego/gosec:latest -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: gosec-report
+          path: gosec-report.txt
+          if-no-files-found: error
+          retention-days: 30
