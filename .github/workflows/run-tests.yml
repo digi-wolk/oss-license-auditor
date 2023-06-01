@@ -10,7 +10,6 @@ on:
       - master
     paths-ignore:
       - '**.md'
-      - '**.yml'
 
 jobs:
   unit-tests:
