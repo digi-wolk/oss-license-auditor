@@ -1,0 +1,41 @@
+name: close-stale-issues
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  close-stale-issues:
+    name: Close stale issues
+    permissions:
+      issues: write
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/stale-issue-cleanup@v6
+        with:
+          issue-types: issues,pull_requests
+
+          ancient-issue-message: This issue has not received any attention in 1 year. If you want to keep this issue open, please leave a comment below and auto-close will be canceled.
+          stale-issue-message: This issue has not received a response in a while. If you want to keep this issue open, please leave a comment below and auto-close will be canceled.
+          ancient-pr-message: This PR has not received any attention in 1 year. If you want to keep this PR open, please leave a comment below and auto-close will be canceled.
+          stale-pr-message: This PR has not received a response in a while. If you want to keep this issue open, please leave a comment below and auto-close will be canceled.
+
+          stale-issue-label: closing-soon
+          exempt-issue-labels: awaiting-approval
+          stale-pr-label: no-pr-activity
+          exempt-pr-labels: awaiting-approval
+          response-requested-label: response-requested
+          closed-for-staleness-label: closed-for-staleness
+
+          days-before-stale: 3
+          days-before-close: 7
+          days-before-ancient: 60
+          minimum-upvotes-to-exempt: 2
+
+          loglevel: DEBUG
+          dry-run: false
+
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
