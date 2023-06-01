@@ -1,15 +1,15 @@
-# Description
-<!--- Describe your changes in detail -->
-
 ## Type of change
 <!---
-What type of change does your code introduce?
-Put an `x` in all the boxes that apply.
+NOTE: Only keep the one that applies and remove the rest.
 -->
-- [ ] Refactoring (code change that improves quality of code without changing its functionality)
-- [ ] Documentation update
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Other (please describe):
+- Refactoring (code change that improves the quality of code without changing its functionality)
+- Documentation update
+- Bug fix (non-breaking change which fixes an issue)
+- New feature (non-breaking change which adds functionality)
+- Breaking change (fix or feature that would cause existing functionality not to work as expected)
+- Other (please describe):
 
+## Description
+<!--- Describe your changes in detail -->
+
+## Checklist
