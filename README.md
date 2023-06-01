@@ -30,6 +30,9 @@ Later, it will support:
 If you like this project, remember to give us a star ⭐ on GitHub. (Spoiler: It motivates a lot!)
 <br />You can also support the creator of this project by [buying me a coffee](https://bmc.link/pooyan).
 
+# Project layout
+Project layout is based on [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
+
 # Related projects
 
 - Docker image on Hub: TBD
@@ -40,7 +43,7 @@ If you like this project, remember to give us a star ⭐ on GitHub. (Spoiler: It
 ## CLI
 
 To run this project, you need to have Go installed on your machine.
-Then, run the following command inside the src directory of this project
+Then, run the following command inside the root directory of this project
 
 ```bash
 go run main.go --path /path/to/your/project
@@ -64,7 +67,7 @@ TBD
 To run unit test for this project, run the following command:
 
 ```bash
-cd src/ && go test ./...
+go test ./...
 ```
 
 # How to contribute

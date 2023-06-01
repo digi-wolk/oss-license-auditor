@@ -3,8 +3,8 @@ package get_dependencies
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/digi-wolk/oss-license-auditor/lib/npm"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/npm"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"io"
 	"log"
 	"os"
@@ -68,7 +68,8 @@ func openFileWithRetry(filePath string) (*os.File, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get current path: %v", err)
 	}
-	filePath = filepath.Join(basePath, filepath.Clean(filePath))
+	clean := filepath.Clean(filePath)
+	filePath = filepath.Join(basePath, clean)
 	for attempt := 1; attempt <= RetryAttempts; attempt++ {
 		file, err = os.Open(filePath)
 		if err == nil {

@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/digi-wolk/oss-license-auditor/lib/cli"
-	detectPackageManager "github.com/digi-wolk/oss-license-auditor/lib/detect/package-manager"
-	getDependencies "github.com/digi-wolk/oss-license-auditor/lib/get-dependencies"
-	printDependencies "github.com/digi-wolk/oss-license-auditor/lib/print-dependencies"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/cli"
+	detectPackageManager "github.com/digi-wolk/oss-license-auditor/internal/detect/package-manager"
+	getDependencies "github.com/digi-wolk/oss-license-auditor/internal/get-dependencies"
+	printDependencies "github.com/digi-wolk/oss-license-auditor/internal/print-dependencies"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"log"
 )
 

@@ -1,6 +1,6 @@
 package types
 
-import "github.com/digi-wolk/oss-license-auditor/lib/cli"
+import "github.com/digi-wolk/oss-license-auditor/internal/cli"
 
 type Package struct {
 	Name               string `json:"name"`

@@ -2,8 +2,8 @@ package print_dependencies
 
 import (
 	"fmt"
-	"github.com/digi-wolk/oss-license-auditor/lib/cli"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/cli"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"log"
 	"path/filepath"
 )

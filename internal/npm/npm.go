@@ -3,8 +3,8 @@ package npm
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/digi-wolk/oss-license-auditor/definitions"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/definitions"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"io"
 	"io/ioutil"
 	"log"

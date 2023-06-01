@@ -3,7 +3,7 @@ package github
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"log"
 	"net/http"
 	"os"

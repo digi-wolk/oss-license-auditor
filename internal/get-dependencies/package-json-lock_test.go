@@ -1,7 +1,7 @@
 package get_dependencies
 
 import (
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"testing"
 )
 
@@ -9,7 +9,7 @@ import (
 func TestGetDependenciesPackageJsonLockWithAValidPackageLockJsonFile(t *testing.T) {
 	expectedPackageOwner := "@humanwhocodes"
 	expectedPackageName := "object-schema"
-	path := "../../../test-fixtures/get-dependencies/npm-package-lock/package-lock.json"
+	path := "../../test/fixtures/get-dependencies/npm-package-lock/package-lock.json"
 	var dependencies types.Dependencies
 	dependencies.PackageManagerFile = path
 	err := GetDependenciesPackageJsonLock(&dependencies)
@@ -30,7 +30,7 @@ func TestGetDependenciesPackageJsonLockWithAValidPackageLockJsonFile(t *testing.
 
 // Test openFileWithRetry with a valid package-lock.json file
 func TestOpenFileWithRetryWithAValidPackageLockJsonFile(t *testing.T) {
-	path := "../../../test-fixtures/detect-package-managers/src-2/package-lock.json"
+	path := "../../test/fixtures/detect-package-managers/src-2/package-lock.json"
 	_, err := openFileWithRetry(path)
 	if err != nil {
 		t.Errorf("openFileWithRetry errored: %s", err)

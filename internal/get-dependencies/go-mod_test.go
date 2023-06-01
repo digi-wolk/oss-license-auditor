@@ -1,14 +1,14 @@
 package get_dependencies
 
 import (
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"log"
 	"testing"
 )
 
 // Test GetDependenciesGoMod contains github.com/gin-gonic/gin v1.7.5
 func TestGetDependenciesWithTestProjectPath(t *testing.T) {
-	projectPath := "../../../test-fixtures/get-dependencies/go-go-mod/go.mod"
+	projectPath := "../../test/fixtures/get-dependencies/go-go-mod/go.mod"
 	var dependencies types.Dependencies
 	dependencies.PackageManagerFile = projectPath
 	err := GetDependenciesGoMod(&dependencies)

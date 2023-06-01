@@ -23,11 +23,9 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
       - name: Download modules
-        working-directory: src
         run: |
           go mod download
       - name: Run unit tests
-        working-directory: src
         run: |
           go test ./... -v
 
@@ -42,17 +40,14 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
       - name: Download modules
-        working-directory: src
         run: |
           go mod download
       - name: Check code coverage above 70%
-        working-directory: src
         run: |
           go test -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out | \
             awk 'END{if ($3 < 70) {print "Code coverage is below 70%"; exit 1} else {print "Code coverage is acceptable"}}'
       - name: Run code coverage
-        working-directory: src
         run: |
           go test -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out
@@ -62,7 +57,7 @@ jobs:
         with:
           name: test-coverage
           path: |
-            src/coverage.html
+            coverage.html
           if-no-files-found: error
           retention-days: 7
 

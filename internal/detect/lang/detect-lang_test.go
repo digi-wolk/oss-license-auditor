@@ -14,7 +14,7 @@ func arrayContains(s []string, str string) bool {
 
 // Test DetectUsedProgrammingLanguages with one .go file and one .ts file
 func TestDetectUsedProgrammingLanguagesWithASingleGoFile(t *testing.T) {
-	fixturePath := "../../../../test-fixtures/detect-langs-based-on-file-extension"
+	fixturePath := "../../../test/fixtures/detect-langs-based-on-file-extension"
 	detectedLanguages := DetectUsedProgrammingLanguages(fixturePath)
 	if len(detectedLanguages) != 2 {
 		t.Errorf("DetectUsedProgrammingLanguages was incorrect, got: %d, want: %d.", len(detectedLanguages), 1)

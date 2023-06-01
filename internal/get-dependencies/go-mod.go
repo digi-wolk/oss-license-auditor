@@ -1,9 +1,9 @@
 package get_dependencies
 
 import (
-	"github.com/digi-wolk/oss-license-auditor/definitions"
-	"github.com/digi-wolk/oss-license-auditor/lib/github"
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/definitions"
+	"github.com/digi-wolk/oss-license-auditor/internal/github"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"os"
 	"os/exec"
 	"strings"

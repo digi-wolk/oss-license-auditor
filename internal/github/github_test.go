@@ -1,7 +1,7 @@
 package github
 
 import (
-	"github.com/digi-wolk/oss-license-auditor/types"
+	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"testing"
 )
 

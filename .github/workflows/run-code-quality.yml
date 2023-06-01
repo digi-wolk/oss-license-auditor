@@ -21,7 +21,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
       - name: Check go.mod
-        working-directory: src
         run: |
           go mod tidy
           git diff --exit-code
@@ -35,11 +34,9 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
       - name: Download modules
-        working-directory: src
         run: |
           go mod download
       - name: Check code formatting
-        working-directory: src
         run: |
           go fmt ./...
           git diff --exit-code
@@ -53,10 +50,8 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
       - name: Download modules
-        working-directory: src
         run: |
           go mod download
       - name: Check code linting
-        working-directory: src
         run: |
           go vet ./...

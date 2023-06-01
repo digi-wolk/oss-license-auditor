@@ -3,7 +3,7 @@
 version: 2
 updates:
   - package-ecosystem: "gomod"
-    directory: "/src"
+    directory: "/internal"
     schedule:
       interval: "weekly"
       day: "sunday"
