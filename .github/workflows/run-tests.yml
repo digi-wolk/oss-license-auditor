@@ -46,6 +46,7 @@ jobs:
         run: |
           go mod download
       - name: Check code coverage above 70%
+        working-directory: src
         run: |
           go test -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out | \
