@@ -1,4 +1,4 @@
-name: run-security-checks
+name: security-checks
 
 on:
   workflow_dispatch:
