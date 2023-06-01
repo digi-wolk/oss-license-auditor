@@ -1,6 +1,6 @@
 ## Type of change
 <!---
-NOTE: Only keep the one that applies and remove the rest.
+NOTE: Please keep the one that applies and remove the rest.
 -->
 - Refactoring (code change that improves the quality of code without changing its functionality)
 - Documentation update
