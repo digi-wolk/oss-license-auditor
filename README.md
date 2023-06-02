@@ -99,13 +99,19 @@ git push origin "${RELEASE_VERSION}"
 The GitHub Action release workflow triggers immediately after the tag is pushed upstream. It will build and publish 
 the docker image into DockerHub.
 
-### GitHub Release
-
-TBD
-
 ### Docker Hub
 
-TBD
+Docker image is available on [Docker Hub](https://hub.docker.com/r/prazian/oss-license-audit).
+
+You can pull the latest version by running the following command:
+```bash
+docker pull prazian/oss-license-audit:latest
+```
+
+You can pull a specific version by running the following command:
+```bash
+docker pull prazian/oss-license-audit:v0.0.1
+```
 
 ### GitHub Action
 
