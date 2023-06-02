@@ -63,8 +63,27 @@ go build -o oss-license-auditor main.go
 
 ## GitHub Action
 
+This project is also available as a GitHub Action. You can use it in your CI/CD pipelines.
+- [GitHub Marketplace](https://github.com/marketplace/actions/olaudit-action)
+- [GitHub repository](https://github.com/digi-wolk/olaudit-action)
+
+Example usage:
 ```yaml
-TBD
+name: OSS License Auditor
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  oss-license-auditor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: OSS License Auditor
+        uses: digi-wolk/olaudit@v1
+        with:
+          path: .
 ```
 
 # Test
@@ -128,7 +147,6 @@ TBD
 - [Changelog](CHANGELOG.md)
 
 # Maintainers
-- 
 - Pooyan Razian: [github.com/prazian](https://github.com/prazian) - [pooyan.info](https://pooyan.info)
 - TBD (can be you!)
 
