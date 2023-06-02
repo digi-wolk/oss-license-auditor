@@ -92,8 +92,8 @@ git describe --abbrev=0 --tags
 You can create a release by tagging the version as follows:
 ```bash
 # Update the version before running the command
-RELEASE_VERSION=v1.0.0
-git tag "${RELEASE_VERSION}" -m "Release version "${RELEASE_VERSION}"
+RELEASE_VERSION="v0.0.1"
+git tag "${RELEASE_VERSION}" -m "Release version ${RELEASE_VERSION}"
 git push origin "${RELEASE_VERSION}"
 ```
 The GitHub Action release workflow triggers immediately after the tag is pushed upstream. It will build and publish 
