@@ -1,0 +1,59 @@
+# Influenced by: https://github.com/securego/gosec/blob/master/.github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Git prune un-shallow
+        run: git fetch --prune --unshallow
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20.4'
+      # QEMU is a virtualization technology that allows the execution of programs compiled for one architecture
+      # to run on a different architecture
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      # Enable multi-architecture builds within Docker
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+      - name: Generate SBOM
+        uses: CycloneDX/gh-gomod-generate-sbom@v1
+        with:
+          version: v1
+          args: mod -licenses -json -output bom.json
+      - name: Docker meta
+        uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: prazian/oss-license-audit
+          # When ready, should be replaced with:
+          # images: digi-wolk/oss-license-audit
+          flavor: |
+            latest=true
+          tags: |
+            type=sha,format=long
+            type=semver,pattern={{version}}
+      - name: Release Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          tags: ${{steps.meta.outputs.tags}}
+          labels: ${{steps.meta.outputs.labels}}
+          push: true
+          build-args: GO_VERSION=1.20
