@@ -1,4 +1,8 @@
-## OSS License Auditor
+
+<div align="center">
+
+<img src="assets/logo/logo-txt.svg" width="250">
+<br /><br />
 
 [![Test status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml)
 [![Code quality status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml)
@@ -8,14 +12,15 @@
 [![Last commit](https://img.shields.io/github/last-commit/digi-wolk/oss-license-auditor.svg?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/commits/master)
 [![Contributors](https://img.shields.io/github/contributors/digi-wolk/oss-license-auditor?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/graphs/contributors)
 
+</div>
 
-# About
+# OSS License Auditor
 
 ⚡ FAST and COMPREHENSIVE OSS license audit tool ⚡
 
-OSS license analyzer helps you track and validate licenses of all your dependencies in multiple programming languages.
-Thanks to the speed of Golang, this is one of the **FASTEST** tools you can use to audit licenses used by the dependencies
-used in your code. That means it will not be expensive to run it in your CI/CD pipelines.
+OSS license auditor helps you track and validate licenses of all your dependencies in multiple programming languages.
+Thanks to the speed of Golang, this is one of the **FASTEST** tools you can use to audit licenses used by the
+dependencies used in your code. That means it will not be expensive to run it in your CI/CD pipelines.
 
 Currently, this tool supports:
 - **JavaScript/TypeScript**: NPM - `package-lock.json`
