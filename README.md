@@ -80,7 +80,24 @@ go test ./...
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
 requests to us.
 
+# Check the latest version
+You can get the latest version number by:
+- Checkin the [CHANGELOG.md](CHANGELOG.md) file
+- Running this command:
+```bash
+git describe --abbrev=0 --tags
+```
+
 # Release a new version
+You can create a release by tagging the version as follows:
+```bash
+# Update the version before running the command
+RELEASE_VERSION=v1.0.0
+git tag "${RELEASE_VERSION}" -m "Release version "${RELEASE_VERSION}"
+git push origin "${RELEASE_VERSION}"
+```
+The GitHub Action release workflow triggers immediately after the tag is pushed upstream. It will build and publish 
+the docker image into DockerHub.
 
 ### GitHub Release
 
