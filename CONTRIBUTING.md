@@ -27,6 +27,24 @@ follow these guidelines:
     communication are essential.
 13. After your changes have been approved and merged, you can delete your branch from your forked repository.
 
+## Commit message format
+A good commit message:
+- Starts with the base form of the verb in the present tense and capitalizes the first letter.
+For example: `Add`, `Fix`, `Update`, `Remove`, `Refactor`, `Move`, `Rename`.
+- Is shorter than 50-75 characters
+- Describes what the commit does
+- Does not end with a period
+
+For example:
+- `Add ability to read licenses from file`
+- `Add unit test`
+- `Fix incorrect license name`
+- `Update README.md`
+- `Remove unused code`
+- `Refactor code`
+- `Move code to a new package`
+- `Rename function`
+
 ## Branching Strategy
 - `master`: The main branch of the project.
 - `feature/{issue-number}/{short-description}`: For developing new features.
@@ -39,10 +57,17 @@ Example valid branch names:
 - `bug/2/fix-incorrect-license-name`
 
 ## Release tags
-- `v{major}.{minor}.{patch}`: For releases.
-- `v{major}.{minor}.{patch}-{pre-release}`: For pre-releases.
-- `v{major}.{minor}.{patch}-{build}`: For builds.
-- `v{major}.{minor}.{patch}-{pre-release}-{build}`: For builds.
+- `v{major}.{minor}.{patch}`: For releases
+- `v{major}.{minor}.{patch}-{build}`: For builds
+- `v{major}.{minor}.{patch}-{pre-release}`: For pre-releases
+- `v{major}.{minor}.{patch}-{pre-release}-{build}`: For builds
+
+For example:
+- `v0.1.123`
+- `v1.0.0`
+- `v1.0.0-build`
+- `v1.0.0-alpha`
+- `v1.0.0-alpha-build`
 
 ## Code of Conduct
 
