@@ -51,14 +51,14 @@ To run this project, you need to have Go installed on your machine.
 Then, run the following command inside the root directory of this project
 
 ```bash
-go run main.go --path /path/to/your/project
+go run cmd/olaudit/olaudit.go --path /path/to/your/project
 ```
 
 Alternatively, you can build the project and run the binary file:
 
 ```bash
-go build -o oss-license-auditor main.go
-./oss-license-auditor --path /path/to/your/project
+go build -o olaudit cmd/olaudit/olaudit.go
+./olaudit --path /path/to/your/project
 ```
 
 ## GitHub Action
@@ -148,7 +148,7 @@ TBD
 
 # Maintainers
 - Pooyan Razian: [github.com/prazian](https://github.com/prazian) - [pooyan.info](https://pooyan.info)
-- TBD (can be you!)
+- _< Become the first co-maintainer and add your name here! >_
 
 # Sponsors
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website
