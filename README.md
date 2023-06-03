@@ -6,7 +6,9 @@
 
 [![Test status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml)
 [![Code quality status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml)
-[![Security status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml)
+
+[![goSec security status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml)
+[![Known vulnerabilities by Snyk](https://snyk.io/test/github/digi-wolk/oss-license-auditor/badge.svg)](https://snyk.io/test/github/digi-wolk/oss-license-auditor/badge.svg)
 
 [![License](https://img.shields.io/github/license/digi-wolk/oss-license-auditor?color=blue&label=License&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/blob/master/LICENSE.md)
 [![Last commit](https://img.shields.io/github/last-commit/digi-wolk/oss-license-auditor.svg?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/commits/master)
