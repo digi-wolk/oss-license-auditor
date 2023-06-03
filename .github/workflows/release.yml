@@ -8,6 +8,11 @@ on:
 
 jobs:
   build:
+    # Runs only if unit-tests and code-coverage in run-tests.yml workflow succeed
+    needs:
+      - unit-tests
+      - code-coverage
+    if: ${{ needs.unit-tests.result == 'success' && needs.run-coverage.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
