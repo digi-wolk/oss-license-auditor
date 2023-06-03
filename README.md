@@ -104,7 +104,7 @@ You can get the latest version number by:
 - Checkin the [CHANGELOG.md](CHANGELOG.md) file
 - Running this command:
 ```bash
-git describe --abbrev=0 --tags
+git describe --abbrev=0 --tags --match "v*"
 ```
 
 # Release a new version
