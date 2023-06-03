@@ -47,7 +47,6 @@ jobs:
           flavor: |
             latest=true
           tags: |
-            type=sha,format=long
             type=semver,pattern={{version}}
       - name: Release Docker Image
         uses: docker/build-push-action@v4
