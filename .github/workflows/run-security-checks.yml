@@ -47,7 +47,9 @@ jobs:
           retention-days: 7
 
   snyk-security-check:
+    name: Run Snyk Security Check
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: checkout
         id: checkout
