@@ -2,6 +2,18 @@ name: security-checks
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
   schedule:
     # Once a week at midnight on Sunday
     - cron: '0 0 * * 0'
@@ -30,4 +42,22 @@ jobs:
           name: gosec-report
           path: gosec-report.txt
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 7
+
+  snyk-security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/golang@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
