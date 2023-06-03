@@ -22,10 +22,11 @@ follow these guidelines:
 9. Once you are satisfied with your contributions, submit a pull request from your branch to the main
    repository's `master` branch.
 10. Clearly describe the purpose and scope of your changes in the pull request description.
-11. If all the tests are passed, add maintainers as reviewers to your pull request.
-12. Be prepared to address any feedback or suggestions provided during the code review process. Collaboration and open
+11. Make sure to add reviewers to your pull request. Code owners can be found in the [CODEOWNERS](CODEOWNERS) file.
+12. If all the tests are passed, reviewers will review your pull request.
+13. Be prepared to address any feedback or suggestions provided during the code review process. Collaboration and open
     communication are essential.
-13. After your changes have been approved and merged, you can delete your branch from your forked repository.
+14. After your changes have been approved and merged, you can delete your branch from your forked repository.
 
 ## Commit message format
 A good commit message:
