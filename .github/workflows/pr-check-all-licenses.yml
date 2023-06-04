@@ -23,7 +23,7 @@ jobs:
       - name: Run license analysis
         id: run_license_analysis
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "comment<<$EOF" >> $GITHUB_OUTPUT
