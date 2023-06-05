@@ -6,4 +6,5 @@ type Arguments struct {
 	Verbose           bool
 	FailOnRisky       bool
 	Ci                bool
+	CommentOnGithubPr bool
 }

@@ -8,6 +8,7 @@ func GetCliArguments() Arguments {
 	failOnRisky := flag.Bool("fail-on-risky", false, "Fail if risky licenses are found")
 	ci := flag.Bool("ci", false, "CI mode")
 	verbose := flag.Bool("vvv", false, "Verbose output")
+	commentOnGithubPr := flag.Bool("comment-on-github-pr", false, "Comment on GitHub Pull Request")
 	flag.Parse()
 
 	pathValue := *path
@@ -22,5 +23,6 @@ func GetCliArguments() Arguments {
 		FailOnRisky:       *failOnRisky,
 		Ci:                *ci,
 		Verbose:           *verbose,
+		CommentOnGithubPr: *commentOnGithubPr,
 	}
 }
