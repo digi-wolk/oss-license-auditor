@@ -23,7 +23,7 @@ ENV GO111MODULE on
 RUN addgroup -g 1000 appgroup \
     && adduser -D -u 1000 -G appgroup -h /app -s /sbin/nologin appuser
 
-RUN apk add --no-cache ca-certificates git gcc libc-dev openssh bash
+RUN apk add --no-cache ca-certificates git gcc libc-dev bash openssl>=3.1.1-r0
 COPY --from=builder /app/build/${BIN_NAME} /bin/${BIN_NAME}
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
 
