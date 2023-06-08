@@ -111,6 +111,7 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 
 	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PullRequestId, githubActionDetails.GithubToken, commentMessageLines)
 	if err != nil {
+		log.Println("Error while creating Pull Request comment: " + err.Error())
 		return
 	}
 }
