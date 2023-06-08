@@ -7,5 +7,5 @@ type Arguments struct {
 	FailOnRisky       bool
 	CiType            string
 	Ci                bool
-	CommentOnGithubPr bool
+	CommentOnPr       bool
 }

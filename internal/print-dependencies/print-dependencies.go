@@ -85,7 +85,7 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 		commentMessageLines += printPackage
 	}
 
-	if !args.CommentOnGithubPr {
+	if !args.CommentOnPr {
 		for commentMessageLine := range commentMessageLines {
 			fmt.Println(commentMessageLine)
 		}
@@ -96,6 +96,18 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 		Repository:  os.Getenv("GITHUB_REPOSITORY"),
 		PrNumber:    os.Getenv("PR_NUMBER"),
 		GithubToken: os.Getenv("GITHUB_TOKEN"),
+	}
+
+	if args.Verbose {
+		log.Println("Github Action Details:")
+		log.Println("Github Repository: " + githubActionDetails.Repository)
+		log.Println("PR Number: " + githubActionDetails.PrNumber)
+	}
+
+	if args.Verbose {
+		log.Println("Comment Message:")
+		log.Println("Will comment on the Pull Request with the following message:")
+		log.Println(commentMessageLines)
 	}
 
 	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PrNumber, githubActionDetails.GithubToken, commentMessageLines)

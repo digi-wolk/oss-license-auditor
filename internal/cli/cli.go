@@ -14,7 +14,7 @@ func GetCliArguments() Arguments {
 	failOnRisky := flag.Bool("fail-on-risky", false, "Fail if risky licenses are found")
 	ci := flag.Bool("ci", false, "CI mode")
 	verbose := flag.Bool("vvv", false, "Verbose output")
-	commentOnGithubPr := flag.Bool("comment-on-pr", false, "Comment on Pull Request")
+	commentOnPr := flag.Bool("comment-on-pr", false, "Comment on Pull Request")
 	ciType := flag.String("ci-type", "", "CI type")
 
 	flag.Parse()
@@ -35,7 +35,7 @@ func GetCliArguments() Arguments {
 		*verbose = true
 	}
 	if strings.ToLower(os.Getenv("INPUT_COMMENT-ON-PR")) == "true" {
-		*commentOnGithubPr = true
+		*commentOnPr = true
 	}
 	if strings.ToLower(os.Getenv("GITHUB_ACTIONS")) == "true" {
 		*ciType = "github"
@@ -54,7 +54,7 @@ func GetCliArguments() Arguments {
 		log.Println("OnlyRiskyLicenses: " + strconv.FormatBool(*onlyRiskyLicenses))
 		log.Println("FailOnRisky: " + strconv.FormatBool(*failOnRisky))
 		log.Println("Verbose: " + strconv.FormatBool(*verbose))
-		log.Println("CommentOnGithubPr: " + strconv.FormatBool(*commentOnGithubPr))
+		log.Println("CommentOnPr: " + strconv.FormatBool(*commentOnPr))
 	}
 
 	return Arguments{
@@ -64,6 +64,6 @@ func GetCliArguments() Arguments {
 		Ci:                *ci,
 		CiType:            *ciType,
 		Verbose:           *verbose,
-		CommentOnGithubPr: *commentOnGithubPr,
+		CommentOnPr:       *commentOnPr,
 	}
 }
