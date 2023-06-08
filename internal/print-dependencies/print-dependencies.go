@@ -105,7 +105,6 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 	}
 
 	if args.Verbose {
-		log.Println("Comment Message:")
 		log.Println("Will comment on the Pull Request with the following message:")
 		log.Println(commentMessageLines)
 	}
