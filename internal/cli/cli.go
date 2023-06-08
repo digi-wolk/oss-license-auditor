@@ -2,7 +2,9 @@ package cli
 
 import (
 	"flag"
+	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -43,6 +45,16 @@ func GetCliArguments() Arguments {
 	// Remove extra / from the end of the path if it exists
 	if (pathValue)[len(pathValue)-1:] == "/" {
 		pathValue = (pathValue)[:len(pathValue)-1]
+	}
+
+	if *verbose {
+		log.Println("Path: " + pathValue)
+		log.Println("CiType: " + *ciType)
+		log.Println("Ci: " + strconv.FormatBool(*ci))
+		log.Println("OnlyRiskyLicenses: " + strconv.FormatBool(*onlyRiskyLicenses))
+		log.Println("FailOnRisky: " + strconv.FormatBool(*failOnRisky))
+		log.Println("Verbose: " + strconv.FormatBool(*verbose))
+		log.Println("CommentOnGithubPr: " + strconv.FormatBool(*commentOnGithubPr))
 	}
 
 	return Arguments{
