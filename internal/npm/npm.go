@@ -46,12 +46,12 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 	var packageInfo types.Package
 	// More regular format
 	err = json.Unmarshal(body, &packageInfo)
-	if err != nil && strings.Contains(strings.ToLower(string(body)), "version not found") {
-		log.Printf("WARNING: Package %s (version %s) not found on NPM.", npmPackage.Name, packageVersion)
-		npmPackage.License = "UNKNOWN"
-		return nil
-	}
 	if err != nil {
+		if strings.Contains(strings.ToLower(string(body)), "not found") {
+			log.Printf("WARNING: Package %s (version %s) not found on NPM.", npmPackage.Name, packageVersion)
+			npmPackage.License = "UNKNOWN"
+			return nil
+		}
 		// Less regular format
 		err = json.Unmarshal(body, &types.PackageInfoObjectLicense{})
 		if err != nil {
