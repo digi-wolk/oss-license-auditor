@@ -19,9 +19,9 @@ type Comment struct {
 }
 
 type GithubActionDetails struct {
-	Repository  string
-	PrNumber    string
-	GithubToken string
+	Repository    string
+	PullRequestId string
+	GithubToken   string
 }
 
 // ShowDependencies Shows dependencies and returns if it has any risky fail licenses
@@ -93,15 +93,15 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 	}
 
 	githubActionDetails := GithubActionDetails{
-		Repository:  os.Getenv("GITHUB_REPOSITORY"),
-		PrNumber:    os.Getenv("PR_NUMBER"),
-		GithubToken: os.Getenv("GITHUB_TOKEN"),
+		Repository:    os.Getenv("GITHUB_REPOSITORY"),
+		PullRequestId: os.Getenv("INPUT_PULL-REQUEST-ID"),
+		GithubToken:   os.Getenv("GITHUB_TOKEN"),
 	}
 
 	if args.Verbose {
 		log.Println("Github Action Details:")
 		log.Println("Github Repository: " + githubActionDetails.Repository)
-		log.Println("PR Number: " + githubActionDetails.PrNumber)
+		log.Println("Pull Request ID: " + githubActionDetails.PullRequestId)
 	}
 
 	if args.Verbose {
@@ -109,7 +109,7 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 		log.Println(commentMessageLines)
 	}
 
-	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PrNumber, githubActionDetails.GithubToken, commentMessageLines)
+	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PullRequestId, githubActionDetails.GithubToken, commentMessageLines)
 	if err != nil {
 		return
 	}
