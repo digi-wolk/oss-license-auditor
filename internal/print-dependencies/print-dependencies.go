@@ -48,26 +48,26 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 			fmt.Println("Package: " + packageInfo.Name + " Version: " + packageInfo.Version + " License: " + packageInfo.License + " Package Manager File: " + packageManagerFile)
 		}
 		if packageInfo.IsLicenseRiskyFail {
-			printPackages = append(printPackages, "| 🛑 | "+getPackageDetailsLine(packageInfo)+" |")
+			printPackages = append(printPackages, "\n| 🛑 | "+getPackageDetailsLine(packageInfo)+" |")
 		}
 	}
 	// Show risky warn packages
 	for _, packageInfo := range packages {
 		if packageInfo.IsLicenseRiskyWarn {
-			printPackages = append(printPackages, "| ⚠️ | "+getPackageDetailsLine(packageInfo)+" |")
+			printPackages = append(printPackages, "\n| ⚠️ | "+getPackageDetailsLine(packageInfo)+" |")
 		}
 	}
 	// Show packages with no license determined
 	for _, packageInfo := range packages {
 		if packageInfo.License == "" || packageInfo.License == "UNKNOWN" {
-			printPackages = append(printPackages, "| ⚠️ | "+getPackageDetailsLine(packageInfo)+" |")
+			printPackages = append(printPackages, "\n| ⚠️ | "+getPackageDetailsLine(packageInfo)+" |")
 		}
 	}
 	// Show non-risky packages if --only-risky-licenses is not specified
 	if !args.OnlyRiskyLicenses {
 		for _, packageInfo := range packages {
 			if !packageInfo.IsLicenseRiskyFail && !packageInfo.IsLicenseRiskyWarn && packageInfo.License != "" && packageInfo.License != "UNKNOWN" {
-				printPackages = append(printPackages, "|  | "+getPackageDetailsLine(packageInfo)+" |")
+				printPackages = append(printPackages, "\n|  | "+getPackageDetailsLine(packageInfo)+" |")
 			}
 		}
 	}
@@ -78,12 +78,13 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 
 	var commentMessageLines string
 
-	commentMessageLines += "\n## " + packageManagerFile
-	commentMessageLines += "| | Package | Version | License |"
-	commentMessageLines += "|-|---------|-------- |---------|"
+	commentMessageLines += "## " + packageManagerFile
+	commentMessageLines += "\n\n| | Package | Version | License |"
+	commentMessageLines += "\n|-|---------|-------- |---------|"
 	for _, printPackage := range printPackages {
 		commentMessageLines += printPackage
 	}
+	commentMessageLines += "\n"
 
 	if !args.CommentOnPr {
 		for commentMessageLine := range commentMessageLines {
