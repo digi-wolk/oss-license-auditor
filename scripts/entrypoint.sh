@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# This file was inspired by gosec project
+
+# Binary name based on the value specified in Dockerfile
+BIN_NAME=olaudit
 
 # Expand the arguments into an array of strings. This is required because the GitHub action
 # provides all arguments concatenated as a single string.
@@ -14,4 +18,4 @@ if [[ -n "${GITHUB_TOKEN}" ]]; then
   git config --global --add url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 fi
 
-/bin/gosec "${ARGS[*]}"
+/bin/${BIN_NAME} "${ARGS[*]}"
