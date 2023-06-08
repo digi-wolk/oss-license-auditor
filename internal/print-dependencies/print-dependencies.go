@@ -78,7 +78,8 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 
 	var commentMessageLines string
 
-	commentMessageLines += "## " + packageManagerFile
+	commentMessageLines += "License analysis for dependencies based on:"
+	commentMessageLines += "\n\n`" + packageManagerFile + "`"
 	commentMessageLines += "\n\n| | Package | Version | License |"
 	commentMessageLines += "\n|-|---------|-------- |---------|"
 	for _, printPackage := range printPackages {
