@@ -5,6 +5,7 @@ type Arguments struct {
 	OnlyRiskyLicenses bool
 	Verbose           bool
 	FailOnRisky       bool
+	CiType            string
 	Ci                bool
 	CommentOnGithubPr bool
 }

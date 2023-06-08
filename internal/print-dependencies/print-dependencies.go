@@ -18,6 +18,12 @@ type Comment struct {
 	Body string `json:"body"`
 }
 
+type GithubActionDetails struct {
+	Repository  string
+	PrNumber    string
+	GithubToken string
+}
+
 // ShowDependencies Shows dependencies and returns if it has any risky fail licenses
 func ShowDependencies(dependencies *types.Dependencies) bool {
 	packages := dependencies.Packages
@@ -86,12 +92,13 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 		return
 	}
 
-	owner := os.Getenv("GITHUB_REPOSITORY_OWNER")
-	repo := os.Getenv("GITHUB_REPOSITORY")
-	pullRequestNumber := os.Getenv("GITHUB_PULL_REQUEST_NUMBER")
-	githubToken := os.Getenv("GITHUB_TOKEN")
+	githubActionDetails := GithubActionDetails{
+		Repository:  os.Getenv("GITHUB_REPOSITORY"),
+		PrNumber:    os.Getenv("PR_NUMBER"),
+		GithubToken: os.Getenv("GITHUB_TOKEN"),
+	}
 
-	err := createPullRequestComment(owner, repo, pullRequestNumber, githubToken, commentMessageLines)
+	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PrNumber, githubActionDetails.GithubToken, commentMessageLines)
 	if err != nil {
 		return
 	}
@@ -142,12 +149,9 @@ func getFullPackageName(packageInfo types.Package) string {
 	return fmt.Sprintf("%s/%s", packageInfo.Owner, packageInfo.Name)
 }
 
-func createPullRequestComment(owner string, repo string, pullRequestNumber string, githubToken string, comment string) error {
-	if owner == "" {
-		return errors.New("github Owner is not set")
-	}
-	if repo == "" {
-		return errors.New("github Repo is not set")
+func createPullRequestComment(repository string, pullRequestNumber string, githubToken string, comment string) error {
+	if repository == "" {
+		return errors.New("github repository is not set")
 	}
 	if pullRequestNumber == "" {
 		return errors.New("github Pull Request Number is not set")
@@ -166,7 +170,7 @@ func createPullRequestComment(owner string, repo string, pullRequestNumber strin
 	}
 
 	// Prepare the HTTP request
-	apiUrl := fmt.Sprintf("https://api.github.com/repos/%s/%s/issues/%s/comments", owner, repo, pullRequestNumber)
+	apiUrl := fmt.Sprintf("https://api.github.com/repos/%s/issues/%s/comments", repository, pullRequestNumber)
 	req, err := http.NewRequest("POST", apiUrl, bytes.NewBuffer(payloadBytes))
 	if err != nil {
 		return err
