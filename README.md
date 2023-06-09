@@ -64,7 +64,7 @@ go build -o olaudit cmd/olaudit/olaudit.go
 ## GitHub Action
 
 This project is also available as a GitHub Action. You can use it in your CI/CD pipelines.
-- [GitHub Marketplace](https://github.com/marketplace/actions/olaudit-action)
+- [GitHub Marketplace](https://github.com/marketplace/actions/oss-license-auditor)
 - [GitHub repository](https://github.com/digi-wolk/olaudit-action)
 
 Example usage:
@@ -131,10 +131,6 @@ You can pull a specific version by running the following command:
 ```bash
 docker pull prazian/oss-license-audit:v0.0.1
 ```
-
-### GitHub Action
-
-TBD
 
 # Documentation and resources
 
