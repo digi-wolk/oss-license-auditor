@@ -56,6 +56,7 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 		err = json.Unmarshal(body, &types.PackageInfoObjectLicense{})
 		if err != nil {
 			log.Print(string(body))
+			npmPackage.License = "UNKNOWN"
 			return err
 		}
 	}
