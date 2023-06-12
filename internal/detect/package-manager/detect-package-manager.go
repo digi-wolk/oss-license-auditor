@@ -10,6 +10,8 @@ func DetectUsedPackageManagers(pathToCode string) map[string]string {
 
 	packageManagersMap := map[string]string{
 		"package-lock.json": "npm",
+		"pnpm-lock.yaml":    "pnpm",
+		"pnpm-lock.yml":     "pnpm",
 		"yarn.lock":         "yarn",
 		"pom.xml":           "maven",
 		"build.gradle":      "gradle",

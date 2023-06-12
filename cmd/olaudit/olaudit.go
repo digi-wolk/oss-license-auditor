@@ -36,8 +36,9 @@ func main() {
 	usedPackageManagers := detectPackageManager.DetectUsedPackageManagers(args.Path)
 
 	packageManagers := map[string]func(*types.Dependencies) error{
-		"npm": getDependencies.GetDependenciesPackageJsonLock,
-		"go":  getDependencies.GetDependenciesGoMod,
+		"pnpm": getDependencies.GetDependenciesPnpmLock,
+		"npm":  getDependencies.GetDependenciesPackageJsonLock,
+		"go":   getDependencies.GetDependenciesGoMod,
 	}
 
 	for packageManagerFile, packageManager := range usedPackageManagers {

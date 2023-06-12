@@ -2,28 +2,20 @@ package get_dependencies
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/digi-wolk/oss-license-auditor/internal/npm"
+	"github.com/digi-wolk/oss-license-auditor/internal/shared"
 	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"io"
 	"log"
 	"os"
-	"path/filepath"
 	"strings"
-	"time"
 )
-
-// RetryAttempts represents the number of retry attempts
-const RetryAttempts = 3
-
-// RetryDelay represents the delay duration between retries
-const RetryDelay = time.Second * 2
 
 // GetDependenciesPackageJsonLock Read the package-lock.json file and return the dependencies
 func GetDependenciesPackageJsonLock(dependencies *types.Dependencies) error {
 	var packageJsonLock PackageJsonLock
 
-	jsonFile, err := openFileWithRetry(dependencies.PackageManagerFile)
+	jsonFile, err := shared.OpenFileWithRetry(dependencies.PackageManagerFile)
 	if err != nil {
 		log.Fatal("Error opening package-lock.json file: ", err)
 	}
@@ -58,30 +50,6 @@ func GetDependenciesPackageJsonLock(dependencies *types.Dependencies) error {
 		dependencies.Packages = append(dependencies.Packages, packageInfo)
 	}
 	return nil
-}
-
-func openFileWithRetry(filePath string) (*os.File, error) {
-	var file *os.File
-	var err error
-
-	basePath, err := os.Getwd()
-	if err != nil {
-		return nil, fmt.Errorf("failed to get current path: %v", err)
-	}
-	clean := filepath.Clean(filePath)
-	filePath = filepath.Join(basePath, clean)
-	for attempt := 1; attempt <= RetryAttempts; attempt++ {
-		file, err = os.Open(filePath)
-		if err == nil {
-			// File opened successfully, break the retry loop
-			return file, nil
-		}
-
-		log.Printf("Error opening file %s, retrying in %v...", filePath, RetryDelay)
-		time.Sleep(RetryDelay)
-	}
-
-	return nil, fmt.Errorf("failed to open file %s after %d attempts: %v", filePath, RetryAttempts, err)
 }
 
 // extractNameFromFullName Extract the package name from the full name
