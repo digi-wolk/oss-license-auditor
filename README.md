@@ -24,6 +24,8 @@ dependencies used in your code. That means it will not be expensive to run it in
 
 Currently, this tool supports:
 - **JavaScript/TypeScript**: NPM - `package-lock.json`
+- **JavaScript/TypeScript**: PNPM - `pnpm-lock.yaml`
+- **JavaScript/TypeScript**: Yarn - `yarn.lock`
 - **Go**: Go modules - `go.mod`
 
 Later, it will support:
