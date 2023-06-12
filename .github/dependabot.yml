@@ -3,10 +3,10 @@
 version: 2
 updates:
   - package-ecosystem: "gomod"
-    directory: "/internal"
+    directory: "/"
     schedule:
       interval: "weekly"
-      day: "sunday"
+      day: "tuesday"
       time: "03:00"
     labels:
       - "dependabot"
@@ -17,3 +17,16 @@ updates:
       - "prazian"
     commit-message:
       prefix: "[go.mod update] "
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependabot"
+    open-pull-requests-limit: 5
+    assignees:
+      - "prazian"
+    reviewers:
+      - "prazian"
+    commit-message:
+      prefix: "[github-actions update] "
