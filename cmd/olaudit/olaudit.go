@@ -75,7 +75,8 @@ func main() {
 
 	printDependencies.PrintCi(comment, args)
 
-	if hasRiskyFailLicense {
+	// Only fail if the argument has set by the user
+	if hasRiskyFailLicense && args.FailOnRisky {
 		log.Fatal("*** FAILED *** High risk licenses found!")
 	}
 }
