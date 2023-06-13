@@ -68,7 +68,7 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 			// Less regular format with multiple licenses
 			lessRegularLicenseFormatMultiple := types.PackageInfoObjectLicenses{}
 			err = json.Unmarshal(body, &lessRegularLicenseFormatMultiple)
-			if err != nil {
+			if err != nil || len(lessRegularLicenseFormatMultiple.Licenses) == 0 {
 				log.Print(string(body))
 				npmPackage.License = "UNKNOWN"
 				npmPackage.IsLicenseRiskyWarn = true
