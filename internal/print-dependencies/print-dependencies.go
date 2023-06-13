@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type Comment struct {
@@ -80,14 +81,14 @@ func GetDependenciesOutput(dependencies *types.Dependencies) string {
 	}
 	// Show packages with no license determined
 	for _, packageInfo := range packages {
-		if packageInfo.License == "" || packageInfo.License == "UNKNOWN" {
+		if packageInfo.License == "" || strings.Contains(packageInfo.License, "UNKNOWN") {
 			printPackages = append(printPackages, "\n| ⚠️ | "+getPackageDetailsLine(packageInfo)+" |")
 		}
 	}
 	// Show non-risky packages if --only-risky-licenses is not specified
 	if !dependencies.CliArguments.OnlyRiskyLicenses {
 		for _, packageInfo := range packages {
-			if !packageInfo.IsLicenseRiskyFail && !packageInfo.IsLicenseRiskyWarn && packageInfo.License != "" && packageInfo.License != "UNKNOWN" {
+			if !packageInfo.IsLicenseRiskyFail && !packageInfo.IsLicenseRiskyWarn && packageInfo.License != "" && !strings.Contains(packageInfo.License, "UNKNOWN") {
 				printPackages = append(printPackages, "\n|  | "+getPackageDetailsLine(packageInfo)+" |")
 			}
 		}

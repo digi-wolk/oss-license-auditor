@@ -69,7 +69,7 @@ func GetDependenciesGoMod(dependencies *types.Dependencies) error {
 			Dev:     false,
 		}
 		if packageInfo.License == "" {
-			packageInfo.License = "UNKNOWN"
+			packageInfo.License = "UNKNOWN (empty)"
 		} else {
 			packageInfo.License = githubRepo.LicenseId
 		}

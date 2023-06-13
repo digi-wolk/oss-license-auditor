@@ -49,8 +49,9 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 	if err != nil {
 		if strings.Contains(strings.ToLower(string(body)), "not found") {
 			log.Printf("WARNING: Package %s (version %s) not found on NPM.", npmPackage.Name, packageVersion)
-			npmPackage.License = "UNKNOWN"
+			npmPackage.License = "UNKNOWN (not found)"
 			npmPackage.IsLicenseRiskyWarn = true
+			// Do not fail, instead just add UNKNOWN license
 			return nil
 		}
 		// Less regular format
@@ -60,9 +61,16 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 			log.Print(string(body))
 			npmPackage.License = "UNKNOWN"
 			npmPackage.IsLicenseRiskyWarn = true
-			return err
+			// Do not fail, instead just add UNKNOWN license
+			return nil
 		}
 		npmPackage.License = lessRegularLicenseFormat.License.Type
+		if npmPackage.License == "" {
+			npmPackage.License = "UNKNOWN (empty)"
+			npmPackage.IsLicenseRiskyWarn = true
+			// Do not fail, instead just add UNKNOWN license
+			return nil
+		}
 		npmPackage.IsLicenseRiskyFail = definitions.IsLicenseRiskyFail(packageInfo.License)
 		npmPackage.IsLicenseRiskyWarn = definitions.IsLicenseRiskyWarn(packageInfo.License)
 		return nil
