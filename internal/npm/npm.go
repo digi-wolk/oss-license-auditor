@@ -54,9 +54,9 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 			// Do not fail, instead just add UNKNOWN license
 			return nil
 		}
-		// Less regular format
-		lessRegularLicenseFormat := types.PackageInfoObjectLicense{}
-		err = json.Unmarshal(body, &lessRegularLicenseFormat)
+		// Less regular format with single license
+		lessRegularLicenseFormatSingle := types.PackageInfoObjectLicense{}
+		err = json.Unmarshal(body, &lessRegularLicenseFormatSingle)
 		if err != nil {
 			log.Print(string(body))
 			npmPackage.License = "UNKNOWN"
@@ -64,9 +64,24 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 			// Do not fail, instead just add UNKNOWN license
 			return nil
 		}
-		// Now only one license is supported
-		// TODO: Handle multiple licenses later
-		npmPackage.License = lessRegularLicenseFormat.Licenses[0].Type
+		if lessRegularLicenseFormatSingle.License.Type == "" {
+			// Less regular format with multiple licenses
+			lessRegularLicenseFormatMultiple := types.PackageInfoObjectLicenses{}
+			err = json.Unmarshal(body, &lessRegularLicenseFormatMultiple)
+			if err != nil {
+				log.Print(string(body))
+				npmPackage.License = "UNKNOWN"
+				npmPackage.IsLicenseRiskyWarn = true
+				// Do not fail, instead just add UNKNOWN license
+				return nil
+			}
+			npmPackage.License = lessRegularLicenseFormatMultiple.Licenses[0].Type
+			npmPackage.IsLicenseRiskyFail = definitions.IsLicenseRiskyFail(packageInfo.License)
+			npmPackage.IsLicenseRiskyWarn = definitions.IsLicenseRiskyWarn(packageInfo.License)
+			return nil
+		}
+		npmPackage.License = lessRegularLicenseFormatSingle.License.Type
+
 		if npmPackage.License == "" {
 			npmPackage.License = "UNKNOWN (empty)"
 			npmPackage.IsLicenseRiskyWarn = true

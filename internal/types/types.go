@@ -33,6 +33,10 @@ type NpmPackage struct {
 }
 
 type PackageInfoObjectLicense struct {
+	License ObjectLicense `json:"license"`
+}
+
+type PackageInfoObjectLicenses struct {
 	Licenses []ObjectLicense `json:"licenses"`
 }
 
