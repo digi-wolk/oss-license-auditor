@@ -24,27 +24,48 @@ type GithubActionDetails struct {
 	GithubToken   string
 }
 
-// ShowDependencies Shows dependencies and returns if it has any risky fail licenses
-func ShowDependencies(dependencies *types.Dependencies) bool {
-	packages := dependencies.Packages
-	packageManagerFile := dependencies.PackageManagerFile
-	args := dependencies.CliArguments
-	if args.Ci {
-		printCi(packageManagerFile, packages, args)
-	} else {
-		printNonCi(packageManagerFile, packages, args)
+func PrintCi(outputLines string, args cli.Arguments) {
+	if !args.CommentOnPr {
+		for outputLine := range outputLines {
+			fmt.Println(outputLine)
+		}
+		return
 	}
-	if hasRiskyFailLicenses(packages) {
-		return true
+
+	githubActionDetails := GithubActionDetails{
+		Repository:    os.Getenv("GITHUB_REPOSITORY"),
+		PullRequestId: os.Getenv("INPUT_PULL-REQUEST-ID"),
+		GithubToken:   os.Getenv("GITHUB_TOKEN"),
 	}
-	return false
+
+	if args.Verbose {
+		log.Println("Github Action Details:")
+		log.Println("Github Repository: " + githubActionDetails.Repository)
+		log.Println("Pull Request ID: " + githubActionDetails.PullRequestId)
+	}
+
+	if args.Verbose {
+		log.Println("Will comment on the Pull Request with the following message:")
+		log.Println(outputLines)
+	}
+
+	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PullRequestId, githubActionDetails.GithubToken, outputLines)
+	if err != nil {
+		log.Println("Error while creating Pull Request comment: " + err.Error())
+		return
+	}
 }
 
-func printCi(packageManagerFile string, packages []types.Package, args cli.Arguments) {
+// GetDependenciesOutput Shows dependencies and returns comment + if it has any risky fail licenses
+func GetDependenciesOutput(dependencies *types.Dependencies) string {
 	var printPackages []string
+
+	packages := dependencies.Packages
+	packageManagerFile := dependencies.PackageManagerFile
+
 	// Show risky fail packages
 	for _, packageInfo := range packages {
-		if args.Verbose {
+		if dependencies.CliArguments.Verbose {
 			fmt.Println("Package: " + packageInfo.Name + " Version: " + packageInfo.Version + " License: " + packageInfo.License + " Package Manager File: " + packageManagerFile)
 		}
 		if packageInfo.IsLicenseRiskyFail {
@@ -64,7 +85,7 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 		}
 	}
 	// Show non-risky packages if --only-risky-licenses is not specified
-	if !args.OnlyRiskyLicenses {
+	if !dependencies.CliArguments.OnlyRiskyLicenses {
 		for _, packageInfo := range packages {
 			if !packageInfo.IsLicenseRiskyFail && !packageInfo.IsLicenseRiskyWarn && packageInfo.License != "" && packageInfo.License != "UNKNOWN" {
 				printPackages = append(printPackages, "\n|  | "+getPackageDetailsLine(packageInfo)+" |")
@@ -73,12 +94,11 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 	}
 	if len(printPackages) == 0 {
 		log.Println("Nothing to print!")
-		return
+		return "---"
 	}
 
 	var commentMessageLines string
 
-	commentMessageLines += "License analysis for dependencies based on:"
 	commentMessageLines += "\n\n`" + packageManagerFile + "`"
 	commentMessageLines += "\n\n| | Package | Version | License |"
 	commentMessageLines += "\n|-|---------|-------- |---------|"
@@ -87,38 +107,17 @@ func printCi(packageManagerFile string, packages []types.Package, args cli.Argum
 	}
 	commentMessageLines += "\n"
 
-	if !args.CommentOnPr {
-		for commentMessageLine := range commentMessageLines {
-			fmt.Println(commentMessageLine)
-		}
-		return
+	if !dependencies.CliArguments.Ci {
+		printDependenciesNonCi(packageManagerFile, packages, dependencies.CliArguments)
 	}
 
-	githubActionDetails := GithubActionDetails{
-		Repository:    os.Getenv("GITHUB_REPOSITORY"),
-		PullRequestId: os.Getenv("INPUT_PULL-REQUEST-ID"),
-		GithubToken:   os.Getenv("GITHUB_TOKEN"),
+	if hasRiskyFailLicenses(packages) {
+		dependencies.HasRiskyFailLicense = true
 	}
-
-	if args.Verbose {
-		log.Println("Github Action Details:")
-		log.Println("Github Repository: " + githubActionDetails.Repository)
-		log.Println("Pull Request ID: " + githubActionDetails.PullRequestId)
-	}
-
-	if args.Verbose {
-		log.Println("Will comment on the Pull Request with the following message:")
-		log.Println(commentMessageLines)
-	}
-
-	err := createPullRequestComment(githubActionDetails.Repository, githubActionDetails.PullRequestId, githubActionDetails.GithubToken, commentMessageLines)
-	if err != nil {
-		log.Println("Error while creating Pull Request comment: " + err.Error())
-		return
-	}
+	return commentMessageLines
 }
 
-func printNonCi(packageManagerFile string, packages []types.Package, args cli.Arguments) {
+func printDependenciesNonCi(packageManagerFile string, packages []types.Package, args cli.Arguments) {
 	for _, packageInfo := range packages {
 		if args.Verbose {
 			fmt.Println("Package: " + packageInfo.Name + " Version: " + packageInfo.Version + " License: " + packageInfo.License + " Package Manager File: " + packageManagerFile)
