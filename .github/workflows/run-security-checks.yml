@@ -12,8 +12,8 @@ on:
     paths-ignore:
       - '**.md'
   schedule:
-    # Once a week at midnight on Sunday
-    - cron: '0 0 * * 0'
+    # Once a day at 2:00AM UTC
+    - cron: '0 2 * * *'
 
 permissions:
   actions: read
