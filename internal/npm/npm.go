@@ -46,7 +46,7 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 	var packageInfo types.Package
 	// More regular format
 	err = json.Unmarshal(body, &packageInfo)
-	if err != nil {
+	if err != nil || packageInfo.License == "" {
 		if strings.Contains(strings.ToLower(string(body)), "not found") {
 			log.Printf("WARNING: Package %s (version %s) not found on NPM.", npmPackage.Name, packageVersion)
 			npmPackage.License = "UNKNOWN (not found)"
@@ -64,7 +64,9 @@ func UpdatePackageFromNpm(npmPackage *types.Package) error {
 			// Do not fail, instead just add UNKNOWN license
 			return nil
 		}
-		npmPackage.License = lessRegularLicenseFormat.License.Type
+		// Now only one license is supported
+		// TODO: Handle multiple licenses later
+		npmPackage.License = lessRegularLicenseFormat.Licenses[0].Type
 		if npmPackage.License == "" {
 			npmPackage.License = "UNKNOWN (empty)"
 			npmPackage.IsLicenseRiskyWarn = true

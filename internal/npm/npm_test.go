@@ -6,12 +6,29 @@ import (
 )
 
 // Test UpdatePackageFromNpm updates NPM license for @babel/code-frame
-func TestUpdatePackageFromNpm(t *testing.T) {
+func TestUpdatePackageFromNpmBabel(t *testing.T) {
 	expectedLicense := "MIT"
 	npmPackage := types.Package{
 		Owner:   "@babel",
 		Name:    "code-frame",
 		Version: "7.12.13",
+	}
+	err := UpdatePackageFromNpm(&npmPackage)
+	if err != nil {
+		t.Error("UpdatePackageFromNpm failed")
+	}
+	if npmPackage.License != expectedLicense {
+		t.Error("UpdatePackageFromNpm was incorrect, got: " + npmPackage.License + ", want: " + expectedLicense)
+	}
+}
+
+// Test UpdatePackageFromNpm updates NPM license for @babel/code-frame
+func TestUpdatePackageFromNpmPrelude(t *testing.T) {
+	expectedLicense := "MIT"
+	npmPackage := types.Package{
+		Owner:   "",
+		Name:    "prelude-ls",
+		Version: "1.1.2",
 	}
 	err := UpdatePackageFromNpm(&npmPackage)
 	if err != nil {

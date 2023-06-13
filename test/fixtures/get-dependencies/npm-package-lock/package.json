@@ -9,7 +9,8 @@
     "test": "exit 1"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "prelude-ls": "^1.1.2"
   },
   "devDependencies": {
     "eslint": "^8.41.0",
