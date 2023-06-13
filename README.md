@@ -113,7 +113,7 @@ git describe --abbrev=0 --tags --match "v*"
 You can create a release by tagging the version as follows:
 ```bash
 # Update the version before running the command
-RELEASE_VERSION="v0.0.1"
+RELEASE_VERSION="v0.1.0"
 git tag "${RELEASE_VERSION}" -m "Release version ${RELEASE_VERSION}"
 git push origin "${RELEASE_VERSION}"
 ```
