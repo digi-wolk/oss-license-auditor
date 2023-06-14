@@ -60,11 +60,12 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk-golang.sarif
+          sarif: true
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk-golang.sarif
+          sarif_file: snyk.sarif
+          category: snyk-scanning-golang
 
   snyk-security-check-docker:
     name: Run Snyk Security Check for Docker
@@ -84,9 +85,9 @@ jobs:
         with:
           image: test-image:latest
           sarif: true
-          args: |
-            --sarif-file-output=snyk-docker.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk-docker.sarif
+          sarif_file: snyk.sarif
+          category: snyk-scanning-docker-image
+
