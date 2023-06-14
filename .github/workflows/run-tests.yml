@@ -10,6 +10,9 @@ on:
       - master
     paths-ignore:
       - '**.md'
+  schedule:
+    # Once a day at 3:00AM UTC
+    - cron: '0 3 * * *'
 
 jobs:
   unit-tests:
