@@ -115,7 +115,6 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           category: "/languages:${{ matrix.language }}"
-          sarif-file: codeql.sarif
           upload: true
 
   dependency-review:
