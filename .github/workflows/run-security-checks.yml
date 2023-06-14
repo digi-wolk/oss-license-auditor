@@ -74,12 +74,15 @@ jobs:
       - name: checkout
         id: checkout
         uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag test-image:latest
       - name: Run Snyk to check for vulnerabilities - Docker
         uses: snyk/actions/docker@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
+          image: test-image:latest
           args: --sarif-file-output=snyk-docker.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
