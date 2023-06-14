@@ -1,0 +1,5 @@
+# Snyk policy file
+# https://docs.snyk.io/scan-application-code/snyk-code/getting-started-with-snyk-code/activating-snyk-code-using-the-web-ui/step-3-importing-repositories-to-snyk-for-the-snyk-code-testing/excluding-directories-and-files-from-the-import-process
+exclude:
+  global:
+    - test/**
