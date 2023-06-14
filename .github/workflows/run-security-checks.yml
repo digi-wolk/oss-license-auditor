@@ -46,22 +46,42 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  snyk-security-check:
-    name: Run Snyk Security Check
+  snyk-security-check-golang:
+    name: Run Snyk Security Check for Golang
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: checkout
         id: checkout
         uses: actions/checkout@v3
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities - Golang
         uses: snyk/actions/golang@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
+          args: --sarif-file-output=snyk-golang.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-golang.sarif
+
+  snyk-security-check-docker:
+    name: Run Snyk Security Check for Golang
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities - Docker
+        uses: snyk/actions/docker@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk-docker.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk-docker.sarif
