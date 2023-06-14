@@ -66,7 +66,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
-          category: snyk-scanning-golang
+          category: snyk-golang
+          name: Snyk Security Check for Golang code
 
   snyk-security-check-docker:
     name: Run Snyk Security Check for Docker
@@ -91,5 +92,6 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
-          category: snyk-scanning-docker-image
+          category: snyk-docker-image
+          name: Snyk Security Check for Docker image
 
