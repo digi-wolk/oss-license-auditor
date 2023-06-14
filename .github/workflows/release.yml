@@ -48,6 +48,7 @@ jobs:
             latest=true
           tags: |
             type=semver,pattern={{version}}
+            type=semver,pattern=v{{major}}
       - name: Release Docker Image
         uses: docker/build-push-action@v4
         with:
