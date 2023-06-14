@@ -83,15 +83,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: test-image:latest
-          args: |
-            --file=Dockerfile \
-            --exclude-base-image-vulns \ 
-            --detection-depth=1 \
-            --severity-threshold=medium \
-            --prune-repeated-subdependencies \ 
-            --exclude-app-vulns \
-            --sarif \
-            --sarif-file-output=snyk.sarif
+          args: --file=Dockerfile --exclude-base-image-vulns --detection-depth=1 --severity-threshold=medium --prune-repeated-subdependencies --exclude-app-vulns --sarif --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
