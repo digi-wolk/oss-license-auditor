@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Download modules
         run: |
           go mod download
@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Scan Golang application with Snyk
         uses: snyk/actions/golang@master
         continue-on-error: true # To make sure that SARIF upload gets called
@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag test-image:latest
       - name: Scan Docker with Snyk
@@ -104,7 +104,7 @@ jobs:
         language: [ 'go' ]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -122,6 +122,6 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
