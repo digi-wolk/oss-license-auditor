@@ -23,7 +23,7 @@ jobs:
       # QEMU is a virtualization technology that allows the execution of programs compiled for one architecture
       # to run on a different architecture
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       # Enable multi-architecture builds within Docker
       - name: Set up Docker BuildX
         uses: docker/setup-buildx-action@v2
