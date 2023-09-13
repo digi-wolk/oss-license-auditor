@@ -38,7 +38,7 @@ jobs:
           version: v1
           args: mod -licenses -json -output bom.json
       - name: Docker meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         id: meta
         with:
           images: prazian/oss-license-audit
