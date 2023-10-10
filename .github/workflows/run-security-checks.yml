@@ -38,7 +38,7 @@ jobs:
       - name: Run GoSec Security Scanner
         # TODO: Later remove -no-fail to fail and trigger on PR
         run: |
-          docker run --rm -e GO111MODULE=on -v $(pwd):/code securego/gosec:latest -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
+          docker run --rm -e GO111MODULE=on -v $(pwd):/code securego/gosec:v2.17.0 -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
       - name: Upload report
         uses: actions/upload-artifact@v3
         with:
