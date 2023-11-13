@@ -30,7 +30,7 @@ jobs:
           go run main.go --path ${PATH_TO_CHECK} --ci >> $GITHUB_OUTPUT
           echo "$EOF" >> $GITHUB_OUTPUT
       - name: Comment license analysis
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           comment: ${{ steps.run_license_analysis.outputs.comment }}
         with:
@@ -50,7 +50,7 @@ jobs:
             }
       - name: Remove "failing" label if exists & succeeded
         if: ${{ success() }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const labels = await github.rest.issues.listLabelsOnIssue({
@@ -69,7 +69,7 @@ jobs:
             }
       - name: Add "failing" label if any of the steps failed
         if: ${{ failure() }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.addLabels({
