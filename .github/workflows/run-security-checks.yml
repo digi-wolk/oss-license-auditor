@@ -40,7 +40,7 @@ jobs:
         run: |
           docker run --rm -e GO111MODULE=on -v $(pwd):/code securego/gosec:2.17.0 -no-fail -exclude-dir=test/fixtures /code/... >> gosec-report.txt
       - name: Upload report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gosec-report
           path: gosec-report.txt
