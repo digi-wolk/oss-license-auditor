@@ -15,7 +15,7 @@ ARGS=("$@")
 
 # Using -n instead of ! -z: https://github.com/koalaman/shellcheck/wiki/SC2236
 if [[ -n "${GITHUB_TOKEN}" ]]; then
-  git config --global --add url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+  git config --local --add url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 fi
 
 /bin/${BIN_NAME} "${ARGS[*]}"
