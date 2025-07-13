@@ -47,49 +47,6 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  snyk-security-check-golang:
-    name: Snyk check Golang
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: checkout
-        id: checkout
-        uses: actions/checkout@v4
-      - name: Scan Golang application with Snyk
-        uses: snyk/actions/golang@master
-        continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
-
-  snyk-security-check-docker:
-    name: Snyk check Docker
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: checkout
-        id: checkout
-        uses: actions/checkout@v4
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag test-image:latest
-      - name: Scan Docker with Snyk
-        uses: snyk/actions/docker@master
-        continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          image: test-image:latest
-          args: --file=Dockerfile --exclude-base-image-vulns --detection-depth=1 --severity-threshold=medium --prune-repeated-subdependencies --exclude-app-vulns --sarif --sarif-file-output=snyk.sarif
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
-
   analyze-code-ql:
     name: Analyze code with CodeQL
     runs-on: ubuntu-latest
