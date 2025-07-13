@@ -15,7 +15,14 @@ ARGS=("$@")
 
 # Using -n instead of ! -z: https://github.com/koalaman/shellcheck/wiki/SC2236
 if [[ -n "${GITHUB_TOKEN}" ]]; then
-  git config --local --add url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+    # Check if we are inside a Git repository
+    if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+      git config --local --add url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+    else
+      echo "Warning: Not inside a Git repository. Skipping git configuration."
+    fi
+else
+    echo "Warning: GITHUB_TOKEN is not set. Skipping git configuration."
 fi
 
 /bin/${BIN_NAME} "${ARGS[*]}"
