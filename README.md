@@ -1,20 +1,19 @@
 
 <div align="center">
-
 <img src="assets/logo/logo-txt.svg" width="250">
-<br /><br />
-
-[![Test status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml)
-[![Code quality status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml)
-[![goSec security status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml)
-
-[![License](https://img.shields.io/github/license/digi-wolk/oss-license-auditor?color=blue&label=License&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/blob/master/LICENSE.md)
-[![Last commit](https://img.shields.io/github/last-commit/digi-wolk/oss-license-auditor.svg?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/commits/master)
-[![Contributors](https://img.shields.io/github/contributors/digi-wolk/oss-license-auditor?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/graphs/contributors)
-
 </div>
 
-# OSS License Auditor
+## Status
+[![Test status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-tests.yml)  
+[![Code quality status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-code-quality.yml)  
+[![goSec security status](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml/badge.svg?branch=master)](https://github.com/digi-wolk/oss-license-auditor/actions/workflows/run-security-checks.yml)  
+  
+[![Latest tag](https://img.shields.io/github/v/tag/digi-wolk/oss-license-auditor)](https://github.com/digi-wolk/oss-license-auditor/tags)  
+[![Contributors](https://img.shields.io/github/contributors/digi-wolk/oss-license-auditor?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/graphs/contributors)  
+[![Last commit](https://img.shields.io/github/last-commit/digi-wolk/oss-license-auditor.svg?color=blue&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/commits/master)  
+[![License](https://img.shields.io/github/license/digi-wolk/oss-license-auditor?color=blue&label=License&style=flat-square)](https://github.com/digi-wolk/oss-license-auditor/blob/master/LICENSE.md)  
+
+## OSS License Auditor
 
 ⚡ FAST and COMPREHENSIVE OSS license audit tool ⚡
 
@@ -38,7 +37,7 @@ Later, it will support:
 If you like this project, remember to give us a star ⭐ on GitHub. (Spoiler: It motivates a lot!)
 <br />You can also support the creator of this project by [buying me a coffee](https://bmc.link/pooyan).
 
-# Project layout
+## Project layout
 Project layout is based on [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
 
 # Related projects
@@ -46,9 +45,9 @@ Project layout is based on [Standard Go Project Layout](https://github.com/golan
 - Docker image on Hub: TBD
 - GitHub Action on Marketplace: TBD
 
-# How to use
+## How to use
 
-## CLI
+### CLI
 
 To run this project, you need to have Go installed on your machine.
 Then, run the following command inside the root directory of this project
@@ -64,7 +63,7 @@ go build -o olaudit cmd/olaudit/olaudit.go
 ./olaudit --path /path/to/your/project
 ```
 
-## GitHub Action
+### GitHub Action
 
 This project is also available as a GitHub Action. You can use it in your CI/CD pipelines.
 - [GitHub Marketplace](https://github.com/marketplace/actions/oss-license-auditor)
@@ -89,7 +88,7 @@ jobs:
           path: .
 ```
 
-# Test
+## Test
 
 To run unit test for this project, run the following command:
 
@@ -97,7 +96,7 @@ To run unit test for this project, run the following command:
 go test ./...
 ```
 
-## Code Coverage
+### Code Coverage
 
 To run code coverage tests and ensure coverage is above 70%, use the provided script:
 
@@ -130,12 +129,12 @@ Or to view the coverage report in HTML format:
 go tool cover -html=coverage.out -o coverage.html
 ```
 
-# How to contribute
+## How to contribute
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
 requests to us.
 
-# Check the latest version
+## Check the latest version
 You can get the latest version number by:
 - Checkin the [CHANGELOG.md](CHANGELOG.md) file
 - Running this command:
@@ -143,7 +142,7 @@ You can get the latest version number by:
 git describe --abbrev=0 --tags --match "v*"
 ```
 
-# Release a new version
+## Release a new version
 You can create a release by tagging the version as follows:
 ```bash
 # Update the version before running the command
@@ -154,7 +153,7 @@ git push origin "${RELEASE_VERSION}"
 The GitHub Action release workflow triggers immediately after the tag is pushed upstream. It will build and publish 
 the docker image into DockerHub.
 
-### Docker Hub
+#### Docker Hub
 
 Docker image is available on [Docker Hub](https://hub.docker.com/r/prazian/oss-license-audit).
 
@@ -168,7 +167,7 @@ You can pull a specific version by running the following command:
 docker pull prazian/oss-license-audit:v0.0.1
 ```
 
-# Documentation and resources
+## Documentation and resources
 
 - [Contributing](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
@@ -178,9 +177,9 @@ docker pull prazian/oss-license-audit:v0.0.1
 - [Security](SECURITY.md)
 - [Changelog](CHANGELOG.md)
 
-# Maintainers
+## Maintainers
 - Pooyan Razian: [github.com/prazian](https://github.com/prazian) - [pooyan.info](https://pooyan.info)
 - _< Become the first co-maintainer and add your name here! >_
 
-# Sponsors
+## Sponsors
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website
