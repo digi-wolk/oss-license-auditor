@@ -9,8 +9,32 @@ import (
 	"os"
 )
 
+// GitHubRepoFetcher is a function type for fetching GitHub repo details
+type GitHubRepoFetcher func(githubRepo *types.GithubRepo) error
+
+// currentFetcher is the function that will be used to fetch GitHub repo details
+// By default, it's set to the real implementation
+var currentFetcher GitHubRepoFetcher = fetchGithubRepoDetailsReal
+
 // FetchGithubRepoDetails updates Github repo information
+// It uses the currentFetcher which can be replaced with a mock for testing
 func FetchGithubRepoDetails(githubRepo *types.GithubRepo) error {
+	return currentFetcher(githubRepo)
+}
+
+// SetGitHubRepoFetcher sets the function that will be used to fetch GitHub repo details
+// This can be used to replace the real implementation with a mock for testing
+func SetGitHubRepoFetcher(fetcher GitHubRepoFetcher) {
+	currentFetcher = fetcher
+}
+
+// ResetGitHubRepoFetcher resets the fetcher to the real implementation
+func ResetGitHubRepoFetcher() {
+	currentFetcher = fetchGithubRepoDetailsReal
+}
+
+// fetchGithubRepoDetailsReal is the real implementation of FetchGithubRepoDetails
+func fetchGithubRepoDetailsReal(githubRepo *types.GithubRepo) error {
 	githubToken := getGithubToken()
 	url := fmt.Sprintf("https://api.github.com/repos/%s/%s", githubRepo.Owner, githubRepo.Repo)
 	req, err := http.NewRequest("GET", url, nil)
