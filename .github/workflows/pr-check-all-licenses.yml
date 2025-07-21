@@ -34,7 +34,7 @@ jobs:
           comment: ${{ steps.run_license_analysis.outputs.comment }}
         with:
           script: |
-            const comment = process.env.comment;
+            let comment = process.env.comment;
             console.log(`comment:\n ${comment}`);
             if (comment) {
               comment = `**Licenses and dependencies:**\n\n${comment}`;
