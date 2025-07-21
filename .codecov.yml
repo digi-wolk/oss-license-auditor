@@ -1,0 +1,8 @@
+# Configuration file for code coverage settings
+# Packages listed here will be excluded from coverage calculations
+
+exclude_packages:
+  - cmd/olaudit
+  - internal/cli
+  - internal/print-dependencies
+  - test/fixtures

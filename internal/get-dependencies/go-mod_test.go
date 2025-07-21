@@ -1,13 +1,19 @@
 package get_dependencies
 
 import (
+	"github.com/digi-wolk/oss-license-auditor/internal/github"
 	"github.com/digi-wolk/oss-license-auditor/internal/types"
 	"log"
 	"testing"
 )
 
-// Test GetDependenciesGoMod contains github.com/gin-gonic/gin v1.7.5
+// TestGetDependenciesWithTestProjectPath tests that GetDependenciesGoMod correctly parses
+// dependencies from a go.mod file and finds the expected package
 func TestGetDependenciesWithTestProjectPath(t *testing.T) {
+	// Enable mock mode for GitHub API calls to avoid real API calls during tests
+	github.EnableMockMode()
+	defer github.DisableMockMode() // Ensure we reset to real implementation after the test
+
 	projectPath := "../../test/fixtures/get-dependencies/go-go-mod/go.mod"
 	var dependencies types.Dependencies
 	dependencies.PackageManagerFile = projectPath
@@ -23,13 +29,41 @@ func TestGetDependenciesWithTestProjectPath(t *testing.T) {
 	// Loop through packages of type GoModPackage
 	for _, pkg := range dependencies.Packages {
 		log.Printf("pkg.Name: %s pkg.Owner: %s pkg.Version: %s", pkg.Name, pkg.Owner, pkg.Version)
-		// Print length of packages
 		// If the package name and version match the expected package name and version, return
 		if pkg.Name == expectedPackage.Name && pkg.Owner == expectedPackage.Owner {
 			return
 		}
 	}
 	t.Errorf("ListPackages was incorrect, expected %s package %s version not found.", expectedPackage.Name, expectedPackage.Version)
+}
+
+// TestGetDependenciesWithLicenseInfo tests that GetDependenciesGoMod correctly fetches
+// license information for dependencies using the GitHub API (mocked in this test)
+func TestGetDependenciesWithLicenseInfo(t *testing.T) {
+	// Enable mock mode for GitHub API calls to avoid real API calls during tests
+	github.EnableMockMode()
+	defer github.DisableMockMode() // Ensure we reset to real implementation after the test
+
+	projectPath := "../../test/fixtures/get-dependencies/go-go-mod/go.mod"
+	var dependencies types.Dependencies
+	dependencies.PackageManagerFile = projectPath
+	err := GetDependenciesGoMod(&dependencies)
+	if err != nil {
+		t.Errorf("GetDependenciesGoMod failed with error: %s", err)
+	}
+
+	// Check that we have at least one package with license information
+	foundLicense := false
+	for _, pkg := range dependencies.Packages {
+		if pkg.License != "" && pkg.License != "UNKNOWN (empty)" {
+			foundLicense = true
+			break
+		}
+	}
+
+	if !foundLicense {
+		t.Errorf("GetDependenciesGoMod did not fetch license information for any package")
+	}
 }
 
 // Test GetPackageInfoFromGoModLine returns the correct package info
