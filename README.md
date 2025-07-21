@@ -97,6 +97,39 @@ To run unit test for this project, run the following command:
 go test ./...
 ```
 
+## Code Coverage
+
+To run code coverage tests and ensure coverage is above 70%, use the provided script:
+
+```bash
+./scripts/run-coverage.sh
+```
+
+This script reads package exclusions from `.codecov.yml` and generates a coverage report. You can configure which packages to exclude from coverage calculations by editing the `.codecov.yml` file:
+
+```yaml
+# Configuration file for code coverage settings
+# Packages listed here will be excluded from coverage calculations
+
+exclude_packages:
+  - cmd/olaudit
+  - internal/cli
+  - internal/print-dependencies
+  - test/fixtures
+```
+
+To view the detailed coverage report:
+
+```bash
+go tool cover -func=coverage.out
+```
+
+Or to view the coverage report in HTML format:
+
+```bash
+go tool cover -html=coverage.out -o coverage.html
+```
+
 # How to contribute
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
