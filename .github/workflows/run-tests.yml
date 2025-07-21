@@ -47,7 +47,8 @@ jobs:
           go mod download
       - name: Check code coverage above 70%
         run: |
-          go test -coverprofile=coverage.out ./...
+          # Use the run-coverage.sh script which reads excluded packages from .codecov.yml
+          ./scripts/run-coverage.sh
           go tool cover -func=coverage.out | \
             awk 'END{if ($3 < 70) {print "Code coverage is below 70%"; exit 1} else {print "Code coverage is acceptable"}}'
       - name: Run code coverage
@@ -63,4 +64,3 @@ jobs:
             coverage.html
           if-no-files-found: error
           retention-days: 7
-
