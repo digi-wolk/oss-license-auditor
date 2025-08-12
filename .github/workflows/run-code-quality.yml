@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Check go.mod
         run: |
           go mod tidy
@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download modules
         run: |
           go mod download
@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download modules
         run: |
           go mod download
