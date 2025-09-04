@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GH_PR_COMMENTER_TOKEN }}
       - name: Self assign author
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.issues.addAssignees({
